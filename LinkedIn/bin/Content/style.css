@@ -1,0 +1,39 @@
+#container {
+			margin: 0px auto;
+			float: bottom;
+		}
+		
+#videoElement {
+			width: 100%;
+			height: 100%;
+			background-color: #666;
+		}
+
+.follow-start {
+    background-color: transparent;
+    border: 1px solid #008cc9;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: #008cc9;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+    padding: 0 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 167ms;
+    transition-property: background-color,box-shadow,color;
+    transition-timing-function: cubic-bezier(0,0,.2,1);
+    vertical-align: middle;
+    z-index: 0;
+    box-shadow: inset 0 0 0 1px transparent, inset 0 0 0 3px transparent;
+}
+
+.hidden {
+    display: none;
+}

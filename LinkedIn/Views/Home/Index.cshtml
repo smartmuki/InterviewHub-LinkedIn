@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://static.licdn.com/sc/h/br/198lnfpraoitaowlng2yqclso">
     <link rel="stylesheet" href="https://static.licdn.com/sc/h/a7xhu6qdl47ovb18swzs5asry">
     <link rel="stylesheet" href="https://static.licdn.com/scds/concat/common/css?h=xy71pytsr2st1qe209tuif91">
+    
 
 </head>
 <body dir="ltr" class="render-mode-BIGPIPE nav-v2   ember-application boot-complete icons-loaded">
@@ -357,15 +358,20 @@
                                             </a>
                                             <p class="identity-headline Sans-13px-black-55% mt1">@ViewData["headline"]</p>
                                         </div>
-                                        <div class="sharing-create-share-view__create-content sharing-create-share-view__create-content--is-default" data-ember-action="" data-ember-action-1748="1748">
-                                            <div id="fc_sl1">
+                                        <div class="sharing-create-share-view__create-content sharing-create-share-view__create-content--is-default" style="padding-top: 15px; padding-bottom: 15px;">
+                                            <div id="aadhar1">
+                                                <div style="margin-bottom: 10px">
+                                                    <a data-control-name="identity_welcome_message" href="/in/jananiva/" id="ember2036" class="tap-target feed-s-identity-module__actor-link profile-rail-card__actor-link ember-view" style="font-size: 15px; line-height: 20px;">
+                                                        Verify your Aadhar and capture your photo to get started.
+                                                    </a>
+                                                </div>
                                                 <div id="aadharDiv">
                                                     <div style="margin-right: 5px; height: 32px; width: 72%; display: inline-block; float: left"><input type="text" placeholder="Enter your aadhar number"></input></div>
-                                                    <div style="display: inline-block; "><button title="Verify" onclick="getOtp()" class="follow-start">Verify</button></div>
+                                                    <div style="display: inline-block; "><button title="Get OTP" onclick="getOtp()" class="follow-start">Verify</button></div>
                                                 </div>
                                                 <div id="otpDiv" style="display: none">
                                                     <div style="margin-right: 5px; height: 32px; width: 72%; display: inline-block; float: left"><input type="text" placeholder="Enter your OTP"></input></div>
-                                                    <div style="display: inline-block; "><button title="Verify" href="#" onclick="showMainDiv()" class="follow-start">Verify</button></div>
+                                                    <div style="display: inline-block; "><button title="Verify" href="#" onclick="aadharSuccess()" class="follow-start">Verify</button></div>
                                                 </div>
                                                 <div class="identity-container" style="margin-top:5px">
                                                     <button class="widget-route">
@@ -373,9 +379,17 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <div id="aadharverified" style="display: none">
+                                                <a data-control-name="identity_welcome_message" href="/in/jananiva/" id="ember2036" class="tap-target feed-s-identity-module__actor-link profile-rail-card__actor-link ember-view" style="color: green">
+                                                    Aadhar verified
+                                                </a>
+                                            </div>
                                         </div>
                                         <div id="container">
+                                            <div id="liveRec"><div>&nbsp; LIVE </div></div>
                                             <video autoplay="true" id="videoElement"></video>
+                                            <canvas id="imageCanvas" style="display:none;width:100%; height: 100%"></canvas>
+                                            <div style="display: inline-block; margin:0px 5px; width: 100%" id="photoCaptureDiv"><button title="takePic" onclick="captureSnapshot()" class="follow-start" style="float: right; margin-right: 16px">Capture</button></div>
                                         </div>
 
                                     </div>
@@ -384,19 +398,14 @@
                         </aside>
                         <div role="main" class="core-rail" style="margin-top:30px; width: 72.5%">
                             <div id="firstPage">
-                                <img src="default.png" style="max-height: 100%; max-width:100%"></img>
+                                <img src="/Content/default.png" style="max-height: 100%; max-width:100%"></img>
                             </div>
                             <div id="mainPageCode" class="hidden" style="height: 536px;">
-                                <div id="question" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
-                                    <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1">
-                                        Given 2 sorted arrays, write code to merge them into
-                                        a single sorted array without taking extra space. What is the time and space complexity of your algorithm?
-                                    </span>
+                                <div id="question" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">                             
                                 </div>
                                 <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
                                 <div id="answer" style="display:table-row; height:100%">
-                                    <div id="codeEditor" style="height: 100%"><textarea placeholder="Write your code here..." style="height: 100%;"></textarea></div>
-
+                                    <div id="codeEditor" style="height: 100%"><textarea id="codeArea" placeholder="Write your code here..." style="height: 100%;"></textarea></div>
                                 </div>
                                 <div id="message" style="display: none;">
                                     <div style="margin-top: 5px;">
@@ -413,7 +422,7 @@
                                             <option value="C#">C#</option>
                                         </select>
                                     </div>
-                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="runProgram()" class="follow-start">Submit</button></div>
+                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="submitProgram()" class="follow-start">Submit</button></div>
                                     <div style="display: inline-block; float: right; margin-left:5px; margin-top: 5px;"><button title="Compile" href="#" onclick="compileProgram()" class="follow-start">Compile</button></div>
                                     <div style="display: inline-block; float: right; margin-top: 10px;"><span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpan"></span>
                                     <script>beginTimer("dateSpan")</script></div>
@@ -430,7 +439,7 @@
                                     <iframe id="o365Editor" style="width:100%; height:100%" src="https://onedrive.live.com/embed?cid=FF1189BA2FC1DF54&resid=FF1189BA2FC1DF54%212864&authkey=AMzO0v-6AtwFxHQ&em=2"></iframe>
                                 </div>
                                 <div style="display:table-row; height:0">
-                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="runProgram()" class="follow-start">Submit</button></div>
+                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="loadDoc()" class="follow-start">Submit</button></div>
                                     <div style="display: inline-block; float: right; margin-top: 10px;">
                                         <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpanPM"></span>
                                         <script>beginTimer("dateSpanPM")</script>
@@ -445,6 +454,7 @@
         <iframe sandbox="allow-scripts" style="display:none;" src="//radar.cedexis.com/1/11326/radar.html"></iframe>
     </div>
     <script>
+        getQuestion(false);
          var video = document.querySelector("#videoElement");
 
          navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -454,7 +464,7 @@
          }
 
          function handleVideo(stream) {
-         	video.src = window.URL.createObjectURL(stream);
+             video.src = window.URL.createObjectURL(stream);
          }
 
          function videoError() {

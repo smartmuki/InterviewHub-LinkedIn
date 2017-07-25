@@ -1,7 +1,14 @@
 #container {
 			margin: 0px auto;
-			float: bottom;
+            position: relative;
 		}
+
+#liveRec {
+        position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+}
 		
 #videoElement {
 			width: 100%;

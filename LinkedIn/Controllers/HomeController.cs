@@ -33,7 +33,7 @@ namespace LinkedIn.Controllers
                     {
                         {"grant_type", "authorization_code"},
                         {"code", code},
-                        {"redirect_uri", "http://localhost:37792"},
+                        {"redirect_uri", "http://instantinterviews.azurewebsites.net"},
                         {"client_id", "81ufgqsbif2zx5"},
                         {"client_secret", "xiklDKYAuPTxCDyS"}
                     };

@@ -60,6 +60,7 @@ namespace LinkedIn.Controllers
             }
 
             dynamic responseInJSONFormat = JObject.Parse(authData);
+            ViewBag.linkedinId = responseInJSONFormat.id;
             ViewBag.firstName = responseInJSONFormat.firstName;
             ViewBag.lastName = responseInJSONFormat.lastName;
             ViewBag.headline = responseInJSONFormat.headline;

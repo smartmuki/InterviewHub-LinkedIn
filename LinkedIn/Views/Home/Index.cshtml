@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="https://static.licdn.com/sc/h/br/9kn49xgaxo0csfztn78ppu50o">
     <link rel="stylesheet" href="https://static.licdn.com/sc/h/br/198lnfpraoitaowlng2yqclso">
     <link rel="stylesheet" href="https://static.licdn.com/sc/h/a7xhu6qdl47ovb18swzs5asry">
-    <link rel="stylesheet" href="https://static.licdn.com/scds/concat/common/css?h=xy71pytsr2st1qe209tuif91">
-
+    <link rel="stylesheet" href="https://static.licdn.com/scds/concat/common/css?h=xy71pytsr2st1qe209tuif91">  
 
 </head>
 <body dir="ltr" class="render-mode-BIGPIPE nav-v2   ember-application boot-complete icons-loaded">
@@ -3093,6 +3092,7 @@
                                                 <button id="candidateBtn" class="mn-abi-form__primary-btn button-secondary-medium mb2" data-ember-action="" data-ember-action-7979="7979">
                                                     Candidate
                                                 </button>
+                                                      
                                             </div>
                                         </div>
                                     </div>
@@ -3348,7 +3348,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div id="aadharverified" style="display: none">
+                                            <div id="aadharverifiedDiv" style="display: none">
                                                 <div style="display: inline-block; width: 100%"><button title="Verify" href="#" class="follow-start" style="background-color: #0084bf; width: 100%; background-color: teal; color: #ffffff; border: 1px solid teal">Aadhaar verified</button></div>
                                             </div>
                                         </div>
@@ -5981,8 +5981,8 @@
                                 <div id="firstPage">
                                     <img src="/Content/defaultBanner.png" style="max-height: 100%; max-width:100%"></img>
                                 </div>
-                                <div id="mainPage" class="hidden">
-                                    <div id="mainPageCode" class="hidden" style="height: 536px;">
+                                <div id="mainPage" class="hidden" style="width: 100%">
+                                    <div id="mainPageCode" class="hidden" style="height: 536px; width: 100%">
                                         <div id="question" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
                                         </div>
                                         <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
@@ -5994,7 +5994,7 @@
                                                 <p id="messageText" style="font-size: 13px; color: red;">Your program has errors. Please fix them.</p>
                                             </div>
                                         </div>
-                                        <div style="display:table-row; height:0">
+                                        <div style="display:table-row; height:0" id="langDropDown">
                                             <div style="display: inline-block; float: left; margin-top:5px;">
                                                 <select id="globalfooter-select_language" class="nav-footer-container__language-selection-dropdown" style="border: 1px solid">
                                                     <option value="C" selected>C</option>
@@ -6004,15 +6004,16 @@
                                                     <option value="C#">C#</option>
                                                 </select>
                                             </div>
-                                            <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="submitProgram()" class="follow-start">Submit</button></div>
-                                            <div style="display: inline-block; float: right; margin-left:5px; margin-top: 5px;"><button title="Compile" href="#" onclick="compileProgram()" class="follow-start">Compile</button></div>
+                                            <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;" id="submitDiv"><button title="Submit" href="#" onclick="submitProgram()" class="follow-start">Submit</button></div>
+                                            <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;" class="hidden" id="endDiv"><button title="End interview" href="#" onclick="end()" class="follow-start">End</button></div>
+                                            <div style="display: inline-block; float: right; margin-left:5px; margin-top: 5px;" id="compileDiv"><button title="Compile" href="#" onclick="compileProgram()" class="follow-start">Compile</button></div>
                                             <div style="display: inline-block; float: right; margin-top: 10px;">
                                                 <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpan"></span>
                                                 <script>beginTimer("dateSpan")</script>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="mainPageOther" class="hidden" style="height: 536px;">
+                                    <div id="mainPageOther" class="hidden" style="height: 536px; width: 100%">
                                         <div id="questionPM" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
                                         </div>
                                         <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
@@ -6040,6 +6041,10 @@
     <canvas id="imageCanvas" style="display: none;width:400px; height: 235px"></canvas>
 
     <script>
+        var firstName = @ViewData["firstName"];
+                                                       var lastName = @ViewData["lastName"];
+                                                       var linkedinId = @ViewData["linkedinId"];
+                                                       var pictureUrl = @ViewData["pictureUrl"];
         getQuestion(false);
         var video = document.querySelector("#videoElement");
 

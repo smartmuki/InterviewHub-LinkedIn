@@ -18,7 +18,7 @@ function aadharSuccess() {
 }
 
 function showMainDiv() {
-    if (aadharVerified && photoCaptured) {
+    if (aadharVerified == true && photoCaptured == true) {
         $("#firstPage").hide();
         $("#photoCaptureDiv").hide();
         $("#mainPage").show();

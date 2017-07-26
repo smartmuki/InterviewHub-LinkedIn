@@ -25,7 +25,7 @@ namespace LinkedIn.Controllers
                 {
                     return
                         Redirect(
-                            "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81ufgqsbif2zx5&redirect_uri=http%3A%2F%2Flocalhost%3A37792&state=DCEeFWf45A53sdfKef424&scope=r_basicprofile");
+                            "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81ufgqsbif2zx5&redirect_uri=http%3A%2F%2Finstantinterviews.azurewebsites.net&state=DCEeFWf45A53sdfKef424&scope=r_basicprofile");
                 }
                 else
                 {

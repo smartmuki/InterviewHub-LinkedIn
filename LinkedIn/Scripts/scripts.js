@@ -261,3 +261,9 @@ function sendVideoXHR() {
     xhr.send();
 }
 
+$(document).ready(function() {
+    $("#instantInterviewsBtn").on('click', function () {
+        document.getElementById("homePage").style.display = 'none';
+        document.getElementById("interviewsHomePage").style.display = 'inline';
+    });
+});

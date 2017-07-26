@@ -263,7 +263,15 @@ function sendVideoXHR() {
 
 $(document).ready(function() {
     $("#instantInterviewsBtn").on('click', function () {
+        $("#navHomeBtn").removeClass("active");
+        $("#notificationIntervewBadge").remove();
+        $("#instantInterviewsBtn").addClass("active");
         document.getElementById("homePage").style.display = 'none';
         document.getElementById("interviewsHomePage").style.display = 'inline';
+    });
+
+    $("#candidateBtn").on('click', function () {
+        document.getElementById("interviewsHomePage").style.display = 'none';
+        document.getElementById("interviewHomePage").style.display = 'inline';
     });
 });

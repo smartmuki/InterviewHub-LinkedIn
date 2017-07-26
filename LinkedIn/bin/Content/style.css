@@ -44,3 +44,7 @@
 .hidden {
     display: none;
 }
+
+.sharing-share-action-media__upload-camera-icon {
+    top: 10px !important;
+}

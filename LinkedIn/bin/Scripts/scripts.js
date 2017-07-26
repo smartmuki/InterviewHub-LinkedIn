@@ -21,19 +21,18 @@ function showMainDiv() {
     if (aadharVerified && photoCaptured) {
         $("#firstPage").hide();
         $("#photoCaptureDiv").hide();
-        $("#mainPageCode").show();
-        $("#mainPageCode").css("display", "table");
+        $("#mainPage").show();
     }
 }
 
 function captureSnapshot() {
     var canv = document.getElementById("imageCanvas");
     var ctx = canv.getContext("2d");
-    ctx.drawImage(video, 0, 0);
-    var url = canv.toDataURL('image/webp');
+    ctx.drawImage(video, 0, 0, 310, 232);
+    var url = canv.toDataURL('image/jpeg');
 
     var param = {
-        Extension: ".png",
+        Extension: ".jpg",
         Content: url
     }
     var paramsJson = JSON.stringify(param);
@@ -112,7 +111,19 @@ function handleQuestionResponse(response) {
     if (questionResponse.length > 0) {
         var questionText = questionResponse[0].Question.BlobText;
     }
-    document.getElementById("question").innerHTML = questionText;
+    var qn = questionResponse[0].Question;
+    if (qn.AnswerType != 4) {
+        document.getElementById("question").innerHTML = questionText;
+        $("#mainPageOther").hide();
+        $("#mainPageCode").show();
+        $("#mainPageCode").css("display", "table");
+    } else {
+        document.getElementById("questionPM").innerHTML = questionText;
+        $("#o365Editor").attr('src', qn.AnswerLink);
+        $("#mainPageCode").hide();
+        $("#mainPageOther").show();
+        $("#mainPageOther").css("display", "table");
+    }
 }
 
 function getQuestion(isNext) {
@@ -163,8 +174,11 @@ function compileProgram() {
 
     var sourceCode = $("#codeArea").val();
     var langCode = getLanguageCode(lang);
-    var params = "source=" + sourceCode + "&lang=" + langCode + "&testcases=[\"1\"]&api_key=hackerrank|157661-1635|427f50c06fe4fcb0a2872f12545771f250bdfc31&callback=?";
-    postData("http://api.hackerrank.com/checker/submission.json", params, handleCompileResponse, "application/x-www-form-urlencoded");
+    var params = {
+        source: sourceCode,
+        lang: langCode
+    };
+    postData("http://recruit-linkedin-be.cloudapp.net/api/compile", JSON.stringify(params), handleCompileResponse, "application/json");
     
 }
 

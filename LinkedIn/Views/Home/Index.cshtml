@@ -358,8 +358,8 @@
                                             </a>
                                             <p class="identity-headline Sans-13px-black-55% mt1">@ViewData["headline"]</p>
                                         </div>
-                                        <div class="sharing-create-share-view__create-content sharing-create-share-view__create-content--is-default" style="padding-top: 15px; padding-bottom: 15px;">
-                                            <div id="aadhar1">
+                                        <div class="sharing-create-share-view__create-content sharing-create-share-view__create-content--is-default" style="margin: 10px; padding: 0px">
+                                            <div id="aadhar1" style="margin: 20px 0px">
                                                 <div style="margin-bottom: 10px">
                                                     <a data-control-name="identity_welcome_message" href="/in/jananiva/" id="ember2036" class="tap-target feed-s-identity-module__actor-link profile-rail-card__actor-link ember-view" style="font-size: 15px; line-height: 20px;">
                                                         Verify your Aadhar and capture your photo to get started.
@@ -380,15 +380,12 @@
                                                 </div>
                                             </div>
                                             <div id="aadharverified" style="display: none">
-                                                <a data-control-name="identity_welcome_message" href="/in/jananiva/" id="ember2036" class="tap-target feed-s-identity-module__actor-link profile-rail-card__actor-link ember-view" style="color: green">
-                                                    Aadhar verified
-                                                </a>
+                                                <div style="display: inline-block; width: 100%"><button title="Verify" href="#" class="follow-start" style="background-color: #0084bf; width: 100%; background-color: teal; color: #ffffff; border: 1px solid teal">Aadhaar verified</button></div>
                                             </div>
                                         </div>
                                         <div id="container">
                                             <div id="liveRec"><div>&nbsp; LIVE </div></div>
-                                            <video autoplay="true" id="videoElement"></video>
-                                            <canvas id="imageCanvas" style="display:none;width:100%; height: 100%"></canvas>
+                                            <video autoplay="true" id="videoElement"></video>                                            
                                             <div style="display: inline-block; margin:0px 5px; width: 100%" id="photoCaptureDiv"><button title="takePic" onclick="captureSnapshot()" class="follow-start" style="float: right; margin-right: 16px">Capture</button></div>
                                         </div>
 
@@ -400,52 +397,54 @@
                             <div id="firstPage">
                                 <img src="/Content/default.png" style="max-height: 100%; max-width:100%"></img>
                             </div>
-                            <div id="mainPageCode" class="hidden" style="height: 536px;">
-                                <div id="question" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">                             
-                                </div>
-                                <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
-                                <div id="answer" style="display:table-row; height:100%">
-                                    <div id="codeEditor" style="height: 100%"><textarea id="codeArea" placeholder="Write your code here..." style="height: 100%;"></textarea></div>
-                                </div>
-                                <div id="message" style="display: none;">
-                                    <div style="margin-top: 5px;">
-                                        <p id="messageText" style="font-size: 13px; color: red;">Your program has errors. Please fix them.</p>
+                            <div id="mainPage" class="hidden">
+                                <div id="mainPageCode" class="hidden" style="height: 536px;">
+                                    <div id="question" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
+                                    </div>
+                                    <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
+                                    <div id="answer" style="display:table-row; height:100%">
+                                        <div id="codeEditor" style="height: 100%"><textarea id="codeArea" placeholder="Write your code here..." style="height: 100%;"></textarea></div>
+                                    </div>
+                                    <div id="message" style="display: none;">
+                                        <div style="margin-top: 5px;">
+                                            <p id="messageText" style="font-size: 13px; color: red;">Your program has errors. Please fix them.</p>
+                                        </div>
+                                    </div>
+                                    <div style="display:table-row; height:0">
+                                        <div style="display: inline-block; float: left; margin-top:5px;">
+                                            <select id="globalfooter-select_language" class="nav-footer-container__language-selection-dropdown" style="border: 1px solid">
+                                                <option value="C" selected>C</option>
+                                                <option value="C++">C++ 14</option>
+                                                <option value="Java">Java</option>
+                                                <option value="Python">Python</option>
+                                                <option value="C#">C#</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="submitProgram()" class="follow-start">Submit</button></div>
+                                        <div style="display: inline-block; float: right; margin-left:5px; margin-top: 5px;"><button title="Compile" href="#" onclick="compileProgram()" class="follow-start">Compile</button></div>
+                                        <div style="display: inline-block; float: right; margin-top: 10px;">
+                                            <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpan"></span>
+                                            <script>beginTimer("dateSpan")</script>
+                                        </div>
                                     </div>
                                 </div>
-                                <div style="display:table-row; height:0">
-                                    <div style="display: inline-block; float: left; margin-top:5px;">
-                                        <select id="globalfooter-select_language" class="nav-footer-container__language-selection-dropdown" style="border: 1px solid">
-                                            <option value="C" selected>C</option>
-                                            <option value="C++">C++ 14</option>
-                                            <option value="Java">Java</option>
-                                            <option value="Python">Python</option>
-                                            <option value="C#">C#</option>
-                                        </select>
+                                <div id="mainPageOther" class="hidden" style="height: 536px;">
+                                    <div id="questionPM" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
                                     </div>
-                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="submitProgram()" class="follow-start">Submit</button></div>
-                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top: 5px;"><button title="Compile" href="#" onclick="compileProgram()" class="follow-start">Compile</button></div>
-                                    <div style="display: inline-block; float: right; margin-top: 10px;"><span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpan"></span>
-                                    <script>beginTimer("dateSpan")</script></div>
+                                    <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
+                                    <div id="answerPM" style="display:table-row; height:100%">
+                                        <iframe id="o365Editor" style="width:100%; height:100%" src="https://onedrive.live.com/embed?cid=FF1189BA2FC1DF54&resid=FF1189BA2FC1DF54%212864&authkey=AMzO0v-6AtwFxHQ&em=2"></iframe>
+                                    </div>
+                                    <div style="display:table-row; height:0">
+                                        <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="getQuestion(true)" class="follow-start">Submit</button></div>
+                                        <div style="display: inline-block; float: right; margin-top: 10px;">
+                                            <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpanPM"></span>
+                                            <script>beginTimer("dateSpanPM")</script>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="mainPageOther" class="hidden" style="height: 536px;">
-                                <div id="questionPM" style="border: 1px solid rgba(0,0,0,.15);padding: 10px;border-radius: 4px;display:table-row;height:0">
-                                    <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1">
-                                        Create a pitch deck using Excel to show how many people roughly use Windows apps and what would be the operational cost to onboard all Windows 8/8.1 apps to UWP.
-                                    </span>
-                                </div>
-                                <div style="border-bottom: 1px solid rgba(0,0,0,.15); margin-bottom: 24px; margin-top: 24px;"></div>
-                                <div id="answerPM" style="display:table-row; height:100%">
-                                    <iframe id="o365Editor" style="width:100%; height:100%" src="https://onedrive.live.com/embed?cid=FF1189BA2FC1DF54&resid=FF1189BA2FC1DF54%212864&authkey=AMzO0v-6AtwFxHQ&em=2"></iframe>
-                                </div>
-                                <div style="display:table-row; height:0">
-                                    <div style="display: inline-block; float: right; margin-left:5px; margin-top:5px;"><button title="Submit" href="#" onclick="loadDoc()" class="follow-start">Submit</button></div>
-                                    <div style="display: inline-block; float: right; margin-top: 10px;">
-                                        <span style="font-size: 17px; font-weight:normal; color: #000000" class="identity-headline Sans-13px-black-55% mt1" id="dateSpanPM"></span>
-                                        <script>beginTimer("dateSpanPM")</script>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -453,6 +452,8 @@
         </div>
         <iframe sandbox="allow-scripts" style="display:none;" src="//radar.cedexis.com/1/11326/radar.html"></iframe>
     </div>
+    <canvas id="imageCanvas" style="display: none;width:400px; height: 235px"></canvas>
+    
     <script>
         getQuestion(false);
          var video = document.querySelector("#videoElement");

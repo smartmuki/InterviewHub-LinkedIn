@@ -18,43 +18,53 @@ namespace LinkedIn.Controllers
 
         public async Task<ActionResult> Index(string code = null)
         {
-            if (code != null)
+            String authData = null;
+            if (Session["AuthData"] == null)
             {
-                var values = new Dictionary<string, string>
+                if (code == null)
                 {
-                    {"grant_type", "authorization_code"},
-                    {"code", code},
-                    {"redirect_uri", "http://localhost:37792"},
-                    {"client_id", "81ufgqsbif2zx5"},
-                    {"client_secret", "xiklDKYAuPTxCDyS"}
-                };
+                    return
+                        Redirect(
+                            "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81ufgqsbif2zx5&redirect_uri=http%3A%2F%2Flocalhost%3A37792&state=DCEeFWf45A53sdfKef424&scope=r_basicprofile");
+                }
+                else
+                {
+                    var values = new Dictionary<string, string>
+                    {
+                        {"grant_type", "authorization_code"},
+                        {"code", code},
+                        {"redirect_uri", "http://localhost:37792"},
+                        {"client_id", "81ufgqsbif2zx5"},
+                        {"client_secret", "xiklDKYAuPTxCDyS"}
+                    };
 
-                var content = new FormUrlEncodedContent(values);
+                    var content = new FormUrlEncodedContent(values);
 
-                var response = await client.PostAsync("https://www.linkedin.com/oauth/v2/accessToken", content);
-                var responseString = await response.Content.ReadAsStringAsync();
-                dynamic responseInJson = JObject.Parse(responseString);
-                var accessToken = responseInJson.access_token.ToString();
+                    var response = await client.PostAsync("https://www.linkedin.com/oauth/v2/accessToken", content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    dynamic responseInJson = JObject.Parse(responseString);
+                    var accessToken = responseInJson.access_token.ToString();
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                var profileData =
-                    await
-                        client.GetAsync(
-                            "https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,num-connections,picture-url)?format=json");
-                responseString = await profileData.Content.ReadAsStringAsync();
-                responseInJson = JObject.Parse(responseString);
-                ViewBag.firstName = responseInJson.firstName;
-                ViewBag.lastName = responseInJson.lastName;
-                ViewBag.headline = responseInJson.headline;
-                ViewBag.pictureUrl = responseInJson.pictureUrl;
-                ViewBag.name = responseInJson.firstName + " " + responseInJson.lastName;
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                    var profileData =
+                        await
+                            client.GetAsync(
+                                "https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,num-connections,picture-url)?format=json");
+                    authData = await profileData.Content.ReadAsStringAsync();
+                    Session["AuthData"] = authData;
+                }
             }
             else
             {
-                return
-                    Redirect(
-                        "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=81ufgqsbif2zx5&redirect_uri=http%3A%2F%2Flocalhost%3A37792&state=DCEeFWf45A53sdfKef424&scope=r_basicprofile");
+                authData = Session["AuthData"].ToString();
             }
+
+            dynamic responseInJSONFormat = JObject.Parse(authData);
+            ViewBag.firstName = responseInJSONFormat.firstName;
+            ViewBag.lastName = responseInJSONFormat.lastName;
+            ViewBag.headline = responseInJSONFormat.headline;
+            ViewBag.pictureUrl = responseInJSONFormat.pictureUrl;
+            ViewBag.name = responseInJSONFormat.firstName + " " + responseInJSONFormat.lastName;
 
             return View();
         }

@@ -281,6 +281,7 @@ function handleCreateInterviewSuccess(response) {
     interviewId = JSON.parse(response).InterviewRoundId;
     document.getElementById("interviewsHomePage").style.display = 'none';
     document.getElementById("interviewHomePage").style.display = 'inline';
+    getQuestion(true);
 }
 
 function createInterview(fn, ln, id, pic) {

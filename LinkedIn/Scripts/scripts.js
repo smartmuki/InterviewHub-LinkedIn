@@ -297,6 +297,7 @@ $(document).ready(function() {
         $("#notificationIntervewBadge").remove();
         $("#instantInterviewsBtn").addClass("active");
         document.getElementById("homePage").style.display = 'none';
+        document.getElementById("interviewHomePage").style.display = 'none';
         document.getElementById("interviewsHomePage").style.display = 'inline';
     });
 

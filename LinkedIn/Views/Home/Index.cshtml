@@ -3089,7 +3089,7 @@
                                                     Interviewer
                                                 </button>
                                             </div><div>
-                                                <button id="candidateBtn" class="mn-abi-form__primary-btn button-secondary-medium mb2" onclick="createInterview()" data-ember-action="" data-ember-action-7979="7979">
+                                                <button id="candidateBtn" class="mn-abi-form__primary-btn button-secondary-medium mb2" onclick="createInterview(@ViewData["firstName"], @ViewData["lastName"], @ViewData["linkedinId"], @ViewData["pictureUrl"])">
                                                     Candidate
                                                 </button>
                                                       
@@ -6042,21 +6042,13 @@
 
     <script>
 
-    function createInterview() {
         var firstName = @ViewData["firstName"];
         var lastName = @ViewData["lastName"];
         var linkedinId = @ViewData["linkedinId"];
         var pictureUrl = @ViewData["pictureUrl"];
-            var param = {
-                FirstName: firstName,
-                LastName: lastName,
-                LinkedInId: linkedinId,
-                PicLink: pictureUrl
-            };
-            postData("http://recruit-linkedin-be.cloudapp.net/api/Start", JSON.stringify(param), handleCreateInterviewSuccess, "application/json");
-        }
-        
-        getQuestion(false);
+    
+
+        getQuestion(true);
         var video = document.querySelector("#videoElement");
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;

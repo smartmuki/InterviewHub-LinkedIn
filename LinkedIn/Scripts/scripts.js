@@ -281,15 +281,7 @@ function handleCreateInterviewSuccess(response) {
     document.getElementById("interviewHomePage").style.display = 'inline';
 }
 
-function createInterview() {
-    var param = {
-        FirstName: firstName,
-        LastName: lastName,
-        LinkedInId: linkedinId,
-        PicLink: pictureUrl
-    };
-    postData("http://recruit-linkedin-be.cloudapp.net/api/Start", JSON.stringify(param), handleCreateInterviewSuccess, "application/json");
-}
+
 
 $(document).ready(function() {
     $("#instantInterviewsBtn").on('click', function () {

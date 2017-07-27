@@ -121,7 +121,7 @@ function handleQuestionResponse(response) {
             $("#mainPageCode").css("display", "table");
         } else {
             document.getElementById("questionPM").innerHTML = questionText;
-            $("#o365Editor").attr('src', qn.AnswerLink);
+            document.getElementById('o365Editor').src = qn.AnswerLink;
             $("#mainPageCode").hide();
             $("#mainPageOther").show();
             $("#mainPageOther").css("display", "table");

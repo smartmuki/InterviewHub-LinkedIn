@@ -1,4 +1,4 @@
-// JavaScript source code
+
 var questionResponse;
 var timeRemaining;
 var aadharVerified = false;

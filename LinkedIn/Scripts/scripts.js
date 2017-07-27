@@ -110,6 +110,7 @@ function handleSubmitResponse(response) {
 function handleQuestionResponse(response) {
     questionResponse = JSON.parse(response);
     if (questionResponse.length > 0) {
+        $("#endDiv").hide();
         var questionText = questionResponse[0].Question.BlobText;
         var qn = questionResponse[0].Question;
         if (qn.AnswerType != 4) {

@@ -143,7 +143,7 @@ function handleQuestionResponse(response) {
 
 function getQuestion(isNext) {
     
-    getData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/d57863cd-ee8a-4ebf-8f7a-1a477fc64565/QuestionAnswers?Next=" + isNext, handleQuestionResponse);
+    getData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/" + interviewId + "/QuestionAnswers?Next=" + isNext, handleQuestionResponse);
 }
 
 function submitProgram() {

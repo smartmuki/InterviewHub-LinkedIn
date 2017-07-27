@@ -292,11 +292,6 @@ $(document).ready(function() {
         document.getElementById("interviewHomePage").style.display = 'none';
         document.getElementById("interviewsHomePage").style.display = 'inline';
     });
-
-    $("#candidateBtn").on('click', function () {
-        createInterview();
-        
-    });
 });
 
 

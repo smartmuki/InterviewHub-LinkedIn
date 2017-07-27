@@ -3,6 +3,7 @@ var questionResponse;
 var timeRemaining;
 var aadharVerified = false;
 var photoCaptured = false;
+var interviewId;
 
 function getOtp() {
     $("#aadharDiv").hide();
@@ -11,14 +12,14 @@ function getOtp() {
 
 function aadharSuccess() {
     $("#aadhar1").hide();
-    $("#aadharverified").show();
+    $("#aadharverifiedDiv").show();
 
     aadharVerified = true;
     showMainDiv();
 }
 
 function showMainDiv() {
-    if (aadharVerified && photoCaptured) {
+    if (aadharVerified == true && photoCaptured == true) {
         $("#firstPage").hide();
         $("#photoCaptureDiv").hide();
         $("#mainPage").show();
@@ -86,7 +87,7 @@ function submitQuestionCallback(fileId) {
     }
 
     var params = JSON.stringify(resp);
-    putData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/d57863cd-ee8a-4ebf-8f7a-1a477fc64565/QuestionAnswers/" + resp.Id, params, handleQuestionCallBack);
+    putData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/" + interviewId + "/QuestionAnswers/" + resp.Id, params, handleQuestionCallBack);
 }
 
 function handleSubmitResponse(response) {
@@ -110,23 +111,36 @@ function handleQuestionResponse(response) {
     questionResponse = JSON.parse(response);
     if (questionResponse.length > 0) {
         var questionText = questionResponse[0].Question.BlobText;
-    }
-    var qn = questionResponse[0].Question;
-    if (qn.AnswerType != 4) {
-        document.getElementById("question").innerHTML = questionText;
-        $("#mainPageOther").hide();
-        $("#mainPageCode").show();
-        $("#mainPageCode").css("display", "table");
+        var qn = questionResponse[0].Question;
+        if (qn.AnswerType != 4) {
+            document.getElementById("question").innerHTML = questionText;
+            $("#mainPageOther").hide();
+            $("#mainPageCode").show();
+            $("#mainPageCode").css("display", "table");
+        } else {
+            document.getElementById("questionPM").innerHTML = questionText;
+            $("#o365Editor").attr('src', qn.AnswerLink);
+            $("#mainPageCode").hide();
+            $("#mainPageOther").show();
+            $("#mainPageOther").css("display", "table");
+        }
+
+        if (qn.AnswerType != 3) {
+            $("#compileDiv").hide();
+            $("#langDropDown").hide();
+        } else {
+            $("#compileDiv").show();
+            $("#langDropDown").show();
+        }
     } else {
-        document.getElementById("questionPM").innerHTML = questionText;
-        $("#o365Editor").attr('src', qn.AnswerLink);
-        $("#mainPageCode").hide();
-        $("#mainPageOther").show();
-        $("#mainPageOther").css("display", "table");
+        $("#submitDiv").hide();
+        $("#endDiv").show();
     }
+    
 }
 
 function getQuestion(isNext) {
+    $("#message").css("display", "none");
     getData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/d57863cd-ee8a-4ebf-8f7a-1a477fc64565/QuestionAnswers?Next=" + isNext, handleQuestionResponse);
 }
 
@@ -261,17 +275,31 @@ function sendVideoXHR() {
     xhr.send();
 }
 
+function handleCreateInterviewSuccess(response) {
+    interviewId = JSON.parse(response).InterviewRoundId;
+    document.getElementById("interviewsHomePage").style.display = 'none';
+    document.getElementById("interviewHomePage").style.display = 'inline';
+}
+
+function createInterview(fn, ln, id, pic) {
+    var param = {
+        FirstName: fn,
+        LastName: ln,
+        LinkedInId: id,
+        PicLink: pic
+    };
+    postData("http://recruit-linkedin-be.cloudapp.net/api/Start", JSON.stringify(param), handleCreateInterviewSuccess, "application/json");
+}
+
 $(document).ready(function() {
     $("#instantInterviewsBtn").on('click', function () {
         $("#navHomeBtn").removeClass("active");
         $("#notificationIntervewBadge").remove();
         $("#instantInterviewsBtn").addClass("active");
         document.getElementById("homePage").style.display = 'none';
+        document.getElementById("interviewHomePage").style.display = 'none';
         document.getElementById("interviewsHomePage").style.display = 'inline';
     });
-
-    $("#candidateBtn").on('click', function () {
-        document.getElementById("interviewsHomePage").style.display = 'none';
-        document.getElementById("interviewHomePage").style.display = 'inline';
-    });
 });
+
+

@@ -3089,7 +3089,7 @@
                                                     Interviewer
                                                 </button>
                                             </div><div>
-                                                <button id="candidateBtn" class="mn-abi-form__primary-btn button-secondary-medium mb2" onclick="createInterview(@ViewData["firstName"], @ViewData["lastName"], @ViewData["linkedinId"], @ViewData["pictureUrl"])">
+                                                <button id="candidateBtn" class="mn-abi-form__primary-btn button-secondary-medium mb2" onclick=createInterview('@ViewData["firstName"]', '@ViewData["lastName"]', '@ViewData["linkedinId"]', '@ViewData["pictureUrl"]')>
                                                     Candidate
                                                 </button>
                                                       
@@ -6042,11 +6042,6 @@
 
     <script>
 
-        var firstName = @ViewData["firstName"];
-        var lastName = @ViewData["lastName"];
-        var linkedinId = @ViewData["linkedinId"];
-        var pictureUrl = @ViewData["pictureUrl"];
-    
 
         getQuestion(true);
         var video = document.querySelector("#videoElement");

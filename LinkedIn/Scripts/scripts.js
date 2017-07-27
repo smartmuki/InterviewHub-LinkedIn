@@ -110,6 +110,7 @@ function handleSubmitResponse(response) {
 function handleQuestionResponse(response) {
     questionResponse = JSON.parse(response);
     if (questionResponse.length > 0) {
+        $("#message").css("display", "none");
         $("#endDiv").hide();
         var questionText = questionResponse[0].Question.BlobText;
         var qn = questionResponse[0].Question;
@@ -141,7 +142,7 @@ function handleQuestionResponse(response) {
 }
 
 function getQuestion(isNext) {
-    $("#message").css("display", "none");
+    
     getData("http://recruit-linkedin-be.cloudapp.net/api/InterviewRounds/d57863cd-ee8a-4ebf-8f7a-1a477fc64565/QuestionAnswers?Next=" + isNext, handleQuestionResponse);
 }
 
